@@ -1,7 +1,6 @@
 import pandas as pd
 import gradio as gr
 
-
 # Load the data from the Excel file
 file_path = 'Price_Drop.xlsx'
 df = pd.read_excel(file_path)
@@ -50,8 +49,6 @@ def search_houses(
 iface = gr.Interface(
     fn=search_houses,
     inputs=[
-        gr.Radio(label="Price Choice", choices=["Higher", "Lower", "Around"], value="Higher"),
-        gr.Number(label="Price Value", value=919, minimum=919, maximum=13468),
         gr.CheckboxGroup(label="Beds", choices=[0, 1, 2, 3, 4], value=[0, 1, 2, 3, 4]),
         gr.CheckboxGroup(label="Baths", choices=[0.0, 1.0, 1.5, 2.0, 2.5, 3.0], value=[0.0, 1.0, 1.5, 2.0, 2.5, 3.0]),
         gr.Radio(label="Square Feet Choice", choices=["Higher", "Lower", "Around"], value="Higher"),
@@ -64,13 +61,15 @@ iface = gr.Interface(
             "Ravenswood", "Uptown", "Logan Square", "East Hyde Park", "Wicker Park", 
             "Hyde Park", "Rogers Park", "Near South Side", "Edgewater Beach", "Cragin"
         ], value=["South Loop"], multiselect=True),  # Enable multiple neighborhood selection
+        gr.Radio(label="Price Choice", choices=["Higher", "Lower", "Around"], value="Higher"),
+        gr.Number(label="Price Value", value=919, minimum=919, maximum=13468),
         gr.Number(label="Max Price per Sqft", value=5.8, minimum=1.429, maximum=5.861),
         gr.Number(label="Percentage Threshold", value=0, maximum=df["percentage_change"].max()),
         gr.Checkbox(label="Concession Applied")
     ],
     outputs=[
         gr.Text(label= "Sample Count"),
-        gr.Dataframe(label="Filtered DataFrame")
+        gr.Dataframe(label="Filtered DataFrame" ,height= 400)
     ],
     title="Comprehensive House Search App",
     description="Search for houses based on various criteria and view the results in a table."
@@ -78,4 +77,3 @@ iface = gr.Interface(
 
 # Launch the app
 iface.launch()
-
