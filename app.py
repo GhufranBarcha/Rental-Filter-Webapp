@@ -1,6 +1,7 @@
 import pandas as pd
 import gradio as gr
 
+
 # Load the data from the Excel file
 file_path = 'Price_Drop.xlsx'
 df = pd.read_excel(file_path)
